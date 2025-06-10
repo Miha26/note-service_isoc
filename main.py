@@ -11,7 +11,7 @@ app = FastAPI()
 MONGO_URI = os.environ.get("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["notes_db"]  # sau tags_db în funcție de serviciu
-collection = db["notes"]  # sau tags
+notes_collection = db["notes"]
 
 class Note(BaseModel):
     title: str
