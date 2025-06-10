@@ -2,13 +2,16 @@ from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 from pydantic import BaseModel
 from bson import ObjectId
+import os
+from pymongo import MongoClient
 
 app = FastAPI()
 
 # Conectare la MongoDB local (port diferit pentru container separat în viitor)
-client = MongoClient("mongodb://mongo-notes:27017/")
-db = client["notes_db"]
-notes_collection = db["notes"]
+MONGO_URI = os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client["notes_db"]  # sau tags_db în funcție de serviciu
+collection = db["notes"]  # sau tags
 
 class Note(BaseModel):
     title: str
